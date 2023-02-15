@@ -1,0 +1,14 @@
+---
+- name: Copy rsyslog configuration
+  copy: src=rsyslog.conf dest=/etc/rsyslog.conf
+  notify: restart rsyslog
+
+- name: Copy auditd configuration
+  copy: src=auditd.conf dest=/etc/audit/auditd.conf
+
+- name: auditd service state
+  service:
+    name: auditd
+    state: restarted
+    use: service
+...

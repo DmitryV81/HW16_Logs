@@ -1,0 +1,11 @@
+---
+- name: Add timezone Moscow
+  shell: echo yes | cp /usr/share/zoneinfo/Europe/Moscow /etc/localtime
+
+- name: restart chronyd
+  service:
+    name: chronyd
+    state: restarted
+    use: service
+
+...

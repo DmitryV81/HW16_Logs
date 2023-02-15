@@ -1,0 +1,33 @@
+---
+- name: Install audispd-plugins
+  yum:
+    name: audispd-plugins
+    state: present
+
+- name: Copy audit.rules
+  copy:
+    src: audit.rules
+    dest: /etc/audit/rules.d/audit.rules
+    
+- name: Copy auditd configuration
+  copy:
+    src: auditd.conf
+    dest: /etc/audit/auditd.conf
+
+- name: Copy au-remote configuration
+  copy:
+    src: au-remote.conf
+    dest: /etc/audisp/plugins.d/au-remote.conf
+    
+- name: Copy audisp-remote configuration
+  copy:
+    src: audisp-remote.conf
+    dest: /etc/audisp/audisp-remote.conf
+
+- name: auditd service state
+  service:
+    name: auditd
+    state: restarted
+    use: service
+    
+...

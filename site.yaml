@@ -1,0 +1,23 @@
+---
+- name: Install Nginx
+  hosts: webserver
+  become: true
+  roles:
+  - nginx
+  - filebeat
+  - auditconf
+  - ntpd
+ 
+- name: Install rsyslog server
+  hosts: log
+  become: true
+  roles:
+  - log
+  - ntpd
+ 
+- name: Install elk
+  hosts: elk
+  become: true
+ #remote_user: root
+  roles:
+  - elk

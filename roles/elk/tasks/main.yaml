@@ -1,0 +1,104 @@
+---
+# Disable firewalld and selinux
+- name: disable firewalld
+  systemd:
+    name: firewalld
+    state: stopped
+    enabled: no
+  ignore_errors: yes
+
+- name: disable SELinux
+  ansible.posix.selinux:
+    state: disabled
+
+- name: Copy elasticsearch.rpm
+  copy:
+    src: elasticsearch-8.6.1-x86_64.rpm
+    dest: /tmp/elasticsearch-8.6.1-x86_64.rpm
+
+- name: Copy logstash.rpm
+  copy:
+    src: logstash-8.6.1-x86_64.rpm
+    dest: /tmp/logstash-8.6.1-x86_64.rpm
+
+- name: Copy kibana.rpm
+  copy:
+    src: kibana-8.6.1-x86_64.rpm
+    dest: /tmp/kibana-8.6.1-x86_64.rpm
+
+# Install ElasticSearch
+#- name: Copy install file
+#  copy:
+#    src: elasticsearch_7.17.3_x86_64-224190-9bcb26.rpm
+#    dest: /root/elasticsearch_7.17.3_x86_64-224190-9bcb26.rpm  
+
+- name: Install Elasticsearch
+  yum:
+    name: /tmp/elasticsearch-8.6.1-x86_64.rpm
+    state: present
+
+- name: config elasticsearch
+  template:
+    src: jvm.options
+    dest: /etc/elasticsearch/jvm.options.d/jvm.options
+
+- name: start Elasticsearch service
+  service:
+    name: elasticsearch
+    state: started
+    enabled: yes
+
+# Install Kibana
+#- name: Copy install file
+#  copy:
+#    src: kibana_7.17.3_x86_64-224190-b13e53.rpm
+#    dest: /root/kibana_7.17.3_x86_64-224190-b13e53.rpm
+
+- name: Install Kibana
+  yum:
+    name: /tmp/kibana-8.6.1-x86_64.rpm
+    state: present
+
+- name: Copy Kibana config
+  template:
+    src: kibana.yml
+    dest: /etc/kibana/kibana.yml
+
+- name: Start Kibana service
+  service:
+    name: kibana
+    state: started
+    enabled: yes
+
+
+# Install LogStash
+#- name: Copy install file
+#  copy:
+#    src: logstash_7.17.3_x86_64-224190-3a605f.rpm
+#    dest: /root/logstash_7.17.3_x86_64-224190-3a605f.rpm
+
+- name: Install Logstash
+  yum:
+    name: /tmp/logstash-8.6.1-x86_64.rpm
+    state: present
+
+- name: Copy Logstash config
+  template:
+    src: logstash.yml
+    dest: /etc/logstash/logstash.yml
+
+- name: Copy logstash conf for nginx
+  template:
+    src: logstash-nginx-es.conf
+    dest: /etc/logstash/conf.d/logstash-nginx-es.conf
+
+- name: Start Logstash service
+  service:
+    name: logstash
+    state: started
+    enabled: yes
+
+# Install Filebeats
+
+
+...
