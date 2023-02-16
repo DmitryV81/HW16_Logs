@@ -13,18 +13,18 @@
 
 - name: Copy elasticsearch.rpm
   copy:
-    src: elasticsearch-8.6.1-x86_64.rpm
-    dest: /tmp/elasticsearch-8.6.1-x86_64.rpm
+    src: elasticsearch_7.17.3_x86_64-224190-9bcb26.rpm
+    dest: /tmp/elasticsearch_7.17.3_x86_64-224190-9bcb26.rpm
 
 - name: Copy logstash.rpm
   copy:
-    src: logstash-8.6.1-x86_64.rpm
-    dest: /tmp/logstash-8.6.1-x86_64.rpm
+    src: logstash_7.17.3_x86_64-224190-3a605f.rpm
+    dest: /tmp/logstash_7.17.3_x86_64-224190-3a605f.rpm
 
 - name: Copy kibana.rpm
   copy:
-    src: kibana-8.6.1-x86_64.rpm
-    dest: /tmp/kibana-8.6.1-x86_64.rpm
+    src: kibana_7.17.3_x86_64-224190-b13e53.rpm
+    dest: /tmp/kibana_7.17.3_x86_64-224190-b13e53.rpm
 
 # Install ElasticSearch
 #- name: Copy install file
@@ -34,7 +34,7 @@
 
 - name: Install Elasticsearch
   yum:
-    name: /tmp/elasticsearch-8.6.1-x86_64.rpm
+    name: /tmp/elasticsearch_7.17.3_x86_64-224190-9bcb26.rpm
     state: present
 
 - name: config elasticsearch
@@ -56,7 +56,7 @@
 
 - name: Install Kibana
   yum:
-    name: /tmp/kibana-8.6.1-x86_64.rpm
+    name: /tmp/kibana_7.17.3_x86_64-224190-b13e53.rpm
     state: present
 
 - name: Copy Kibana config
@@ -79,7 +79,7 @@
 
 - name: Install Logstash
   yum:
-    name: /tmp/logstash-8.6.1-x86_64.rpm
+    name: /tmp/logstash_7.17.3_x86_64-224190-3a605f.rpm
     state: present
 
 - name: Copy Logstash config
