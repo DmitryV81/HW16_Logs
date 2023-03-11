@@ -52,11 +52,11 @@ nginx, log, elk, filebeat, auditconf ,ntpd
 
 В работе использовал elasticsearch_7.17.3_x86_64-224190-9bcb26.rpm, kibana_7.17.3_x86_64-224190-b13e53.rpm, logstash_7.17.3_x86_64-224190-3a605f.rpm
 
-Перед запуском стенда их тредуется скачать и поместить в директорию roles/elk/files/
+Перед запуском стенда их требуется скачать и поместить в директорию roles/elk/files/
 
 Ссылка для скачивания:
 
-
+https://disk.yandex.ru/d/NbPeohlbWUC0aQ
 
 Проверяем работу rsyslog на ВМ log:
 ```
